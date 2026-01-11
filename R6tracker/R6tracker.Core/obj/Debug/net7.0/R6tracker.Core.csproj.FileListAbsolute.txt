@@ -1,0 +1,17 @@
+C:\Users\pc\R6tracker\R6tracker.Core\bin\Debug\net7.0\R6tracker.Core.deps.json
+C:\Users\pc\R6tracker\R6tracker.Core\bin\Debug\net7.0\R6tracker.Core.dll
+C:\Users\pc\R6tracker\R6tracker.Core\bin\Debug\net7.0\R6tracker.Core.pdb
+C:\Users\pc\R6tracker\R6tracker.Core\obj\Debug\net7.0\R6tracker.Core.csproj.AssemblyReference.cache
+C:\Users\pc\R6tracker\R6tracker.Core\obj\Debug\net7.0\R6tracker.Core.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\pc\R6tracker\R6tracker.Core\obj\Debug\net7.0\R6tracker.Core.AssemblyInfoInputs.cache
+C:\Users\pc\R6tracker\R6tracker.Core\obj\Debug\net7.0\R6tracker.Core.AssemblyInfo.cs
+C:\Users\pc\R6tracker\R6tracker.Core\obj\Debug\net7.0\R6tracker.Core.csproj.CoreCompileInputs.cache
+C:\Users\pc\R6tracker\R6tracker.Core\obj\Debug\net7.0\R6tracker.Core.dll
+C:\Users\pc\R6tracker\R6tracker.Core\obj\Debug\net7.0\refint\R6tracker.Core.dll
+C:\Users\pc\R6tracker\R6tracker.Core\obj\Debug\net7.0\R6tracker.Core.pdb
+C:\Users\pc\R6tracker\R6tracker.Core\obj\Debug\net7.0\ref\R6tracker.Core.dll
+C:\Users\pc\R6tracker\R6tracker.Core\bin\Debug\net7.0\R6tracker.Infrastructure.dll
+C:\Users\pc\R6tracker\R6tracker.Core\bin\Debug\net7.0\R6tracker.Infrastructure.pdb
+C:\Users\pc\R6tracker\R6tracker.Core\obj\Debug\net7.0\R6tracker.Core.csproj.CopyComplete
+C:\Users\pc\R6tracker\R6tracker.Core\bin\Debug\net7.0\R6tracker.Util.dll
+C:\Users\pc\R6tracker\R6tracker.Core\bin\Debug\net7.0\R6tracker.Util.pdb

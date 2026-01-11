@@ -1,0 +1,14 @@
+C:\Users\pc\R6tracker\R6tracker.Infrastructure\obj\Debug\net7.0\R6tracker.Infrastructure.csproj.AssemblyReference.cache
+C:\Users\pc\R6tracker\R6tracker.Infrastructure\obj\Debug\net7.0\R6tracker.Infrastructure.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\pc\R6tracker\R6tracker.Infrastructure\obj\Debug\net7.0\R6tracker.Infrastructure.AssemblyInfoInputs.cache
+C:\Users\pc\R6tracker\R6tracker.Infrastructure\obj\Debug\net7.0\R6tracker.Infrastructure.AssemblyInfo.cs
+C:\Users\pc\R6tracker\R6tracker.Infrastructure\obj\Debug\net7.0\R6tracker.Infrastructure.csproj.CoreCompileInputs.cache
+C:\Users\pc\R6tracker\R6tracker.Infrastructure\bin\Debug\net7.0\R6tracker.Infrastructure.deps.json
+C:\Users\pc\R6tracker\R6tracker.Infrastructure\bin\Debug\net7.0\R6tracker.Infrastructure.runtimeconfig.json
+C:\Users\pc\R6tracker\R6tracker.Infrastructure\bin\Debug\net7.0\R6tracker.Infrastructure.dll
+C:\Users\pc\R6tracker\R6tracker.Infrastructure\bin\Debug\net7.0\R6tracker.Infrastructure.pdb
+C:\Users\pc\R6tracker\R6tracker.Infrastructure\obj\Debug\net7.0\R6tracker.Infrastructure.dll
+C:\Users\pc\R6tracker\R6tracker.Infrastructure\obj\Debug\net7.0\refint\R6tracker.Infrastructure.dll
+C:\Users\pc\R6tracker\R6tracker.Infrastructure\obj\Debug\net7.0\R6tracker.Infrastructure.pdb
+C:\Users\pc\R6tracker\R6tracker.Infrastructure\obj\Debug\net7.0\R6tracker.Infrastructure.genruntimeconfig.cache
+C:\Users\pc\R6tracker\R6tracker.Infrastructure\obj\Debug\net7.0\ref\R6tracker.Infrastructure.dll
