@@ -1,18 +1,13 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net7.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
+    <TargetFramework>net8.0</TargetFramework>
     <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Humanizer" Version="2.14.1" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\R6tracker.Infrastructure\R6tracker.Infrastructure.csproj" />
-    <ProjectReference Include="..\R6tracker.Util\R6tracker.Util.csproj" />
   </ItemGroup>
 
 </Project>

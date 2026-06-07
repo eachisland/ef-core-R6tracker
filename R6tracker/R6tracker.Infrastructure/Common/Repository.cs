@@ -5,59 +5,46 @@ namespace R6tracker.Infrastructure.Common
 {
     public class Repository : IRepository
     {
-        private readonly R6trackerDbContext _context;
+        private readonly DbContext _context;
 
         public Repository(R6trackerDbContext context)
         {
             _context = context;
         }
 
-        private DbSet<T> DbSet<T>() where T : class
-        {
-            return _context.Set<T>();
-        }
-
-        public void Add<T>(T entity) where T : class
-        {
-            DbSet<T>().Add(entity);
-        }
+        private DbSet<T> DbSet<T>() where T : class => _context.Set<T>();
 
         public IQueryable<T> All<T>() where T : class
-        {
-            return DbSet<T>();
-        }
+            => DbSet<T>();
 
         public IQueryable<T> AllAsNoTracking<T>() where T : class
-        {
-            return DbSet<T>().AsNoTracking();
-        }
+            => DbSet<T>().AsNoTracking();
+
+        public async Task AddAsync<T>(T entity) where T : class
+            => await DbSet<T>().AddAsync(entity);
+
+        public void Add<T>(T entity) where T : class
+            => DbSet<T>().Add(entity);
+
+        public void Update<T>(T entity) where T : class
+            => DbSet<T>().Update(entity);
+
+        public void Delete<T>(T entity) where T : class
+            => DbSet<T>().Remove(entity);
 
         public void Delete<T>(string id) where T : class
         {
-            T entity = GetById<T>(id);
+            var entity = DbSet<T>().Find(id);
+            if (entity == null) throw new NullReferenceException($"Entity with id {id} not found.");
             DbSet<T>().Remove(entity);
         }
 
-        public T GetById<T>(string id) where T : class
-        {
-            T? result = DbSet<T>().Find(id);
+        public async Task<int> SaveChangesAsync()
+            => await _context.SaveChangesAsync();
 
-            if (result == null)
-            {
-                throw new NullReferenceException();
-            }
+        public int SaveChanges()
+            => _context.SaveChanges();
 
-            return result;
-        }
-
-        public void Update<T>(T entity) where T : class
-        {
-            DbSet<T>().Update(entity);
-        }
-
-        public void SaveChanges()
-        {
-            _context.SaveChanges();
-        }
+        public void Dispose() => _context.Dispose();
     }
 }
