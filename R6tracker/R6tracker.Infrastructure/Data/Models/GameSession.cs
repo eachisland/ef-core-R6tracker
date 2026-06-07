@@ -1,5 +1,5 @@
-using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using R6tracker.Infrastructure.Data.Constants;
 
 namespace R6tracker.Infrastructure.Data.Models
@@ -25,5 +25,13 @@ namespace R6tracker.Infrastructure.Data.Models
 
         [MaxLength(DBConstants.GameConstants.MaxResultLength)]
         public string Result { get; set; } = string.Empty;
+
+        [MaxLength(50)]
+        public string? Map { get; set; }
+
+        [Required]
+        public string PlayerId { get; set; } = string.Empty;
+        [ForeignKey(nameof(PlayerId))]
+        public R6Player? Player { get; set; }
     }
 }

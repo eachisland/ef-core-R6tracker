@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using R6tracker.Infrastructure.Data.Constants;
 
 namespace R6tracker.Infrastructure.Data.Models
@@ -10,7 +11,7 @@ namespace R6tracker.Infrastructure.Data.Models
             Id = Guid.NewGuid().ToString();
         }
 
-            [Key]
+        [Key]
         public string Id { get; set; }
 
         [Required]
@@ -19,9 +20,9 @@ namespace R6tracker.Infrastructure.Data.Models
 
         [Required]
         [MaxLength(DBConstants.PlayerConstants.MaxPlatformLength)]
-        public string Platform { get; set; } = string.Empty; 
+        public string Platform { get; set; } = string.Empty;
 
-        [Range(1, 100)]
+        [Range(1, 500)]
         public int Level { get; set; }
 
         [Range(0, int.MaxValue)]
@@ -33,11 +34,22 @@ namespace R6tracker.Infrastructure.Data.Models
         [Range(0, int.MaxValue)]
         public int Deaths { get; set; }
 
-        [Range(0.0, 10.0)]
+        [Range(0.0, 50.0)]
         public double KillDeathRatio { get; set; }
 
         [Required]
         [MaxLength(DBConstants.PlayerConstants.MaxCountryLength)]
         public string Country { get; set; } = string.Empty;
+
+        public string? RankId { get; set; }
+        [ForeignKey(nameof(RankId))]
+        public Rank? Rank { get; set; }
+
+        [Required]
+        public string UserId { get; set; } = string.Empty;
+        [ForeignKey(nameof(UserId))]
+        public ApplicationUser? User { get; set; }
+
+        public ICollection<GameSession> GameSessions { get; set; } = new List<GameSession>();
     }
 }
