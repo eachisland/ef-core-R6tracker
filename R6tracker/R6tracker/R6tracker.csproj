@@ -3,7 +3,6 @@
   <ItemGroup>
     <ProjectReference Include="..\R6tracker.Core\R6tracker.Core.csproj" />
     <ProjectReference Include="..\R6tracker.Infrastructure\R6tracker.Infrastructure.csproj" />
-    <ProjectReference Include="..\R6tracker.Util\R6tracker.Util.csproj" />
   </ItemGroup>
 
   <ItemGroup>
@@ -12,7 +11,7 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>net7.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
   </PropertyGroup>

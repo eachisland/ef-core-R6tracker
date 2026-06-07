@@ -41,6 +41,8 @@ namespace R6tracker.Infrastructure.Data.Models
         [MaxLength(DBConstants.PlayerConstants.MaxCountryLength)]
         public string Country { get; set; } = string.Empty;
 
+        public DateTime CreatedAt { get; set; }
+
         public string? RankId { get; set; }
         [ForeignKey(nameof(RankId))]
         public Rank? Rank { get; set; }
@@ -49,7 +51,6 @@ namespace R6tracker.Infrastructure.Data.Models
         public string UserId { get; set; } = string.Empty;
         [ForeignKey(nameof(UserId))]
         public ApplicationUser? User { get; set; }
-
         public ICollection<GameSession> GameSessions { get; set; } = new List<GameSession>();
     }
 }

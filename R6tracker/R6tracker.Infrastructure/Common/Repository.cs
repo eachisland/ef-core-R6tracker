@@ -35,7 +35,10 @@ namespace R6tracker.Infrastructure.Common
         public void Delete<T>(string id) where T : class
         {
             var entity = DbSet<T>().Find(id);
-            if (entity == null) throw new NullReferenceException($"Entity with id {id} not found.");
+            if (entity == null)
+            {
+                throw new NullReferenceException($"Entity with id {id} not found.");
+            }
             DbSet<T>().Remove(entity);
         }
 

@@ -22,21 +22,18 @@
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
-          "net7.0"
+          "net8.0"
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
-          "net7.0": {
-            "targetAlias": "net7.0",
+          "net8.0": {
+            "targetAlias": "net8.0",
             "projectReferences": {
               "C:\\Users\\pc\\r6trackerproj\\ef-core-R6tracker\\R6tracker\\R6tracker.Infrastructure\\R6tracker.Infrastructure.csproj": {
                 "projectPath": "C:\\Users\\pc\\r6trackerproj\\ef-core-R6tracker\\R6tracker\\R6tracker.Infrastructure\\R6tracker.Infrastructure.csproj"
-              },
-              "C:\\Users\\pc\\r6trackerproj\\ef-core-R6tracker\\R6tracker\\R6tracker.Util\\R6tracker.Util.csproj": {
-                "projectPath": "C:\\Users\\pc\\r6trackerproj\\ef-core-R6tracker\\R6tracker\\R6tracker.Util\\R6tracker.Util.csproj"
               }
             }
           }
@@ -54,12 +51,16 @@
         "SdkAnalysisLevel": "9.0.300"
       },
       "frameworks": {
-        "net7.0": {
-          "targetAlias": "net7.0",
+        "net8.0": {
+          "targetAlias": "net8.0",
           "dependencies": {
-            "Humanizer": {
+            "Microsoft.EntityFrameworkCore": {
               "target": "Package",
-              "version": "[2.14.1, )"
+              "version": "[8.0.0, )"
+            },
+            "Microsoft.Extensions.Logging.Abstractions": {
+              "target": "Package",
+              "version": "[8.0.0, )"
             }
           },
           "imports": [
@@ -78,7 +79,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.311\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.311/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
@@ -163,71 +164,6 @@
         }
       }
     },
-    "C:\\Users\\pc\\r6trackerproj\\ef-core-R6tracker\\R6tracker\\R6tracker.Util\\R6tracker.Util.csproj": {
-      "version": "1.0.0",
-      "restore": {
-        "projectUniqueName": "C:\\Users\\pc\\r6trackerproj\\ef-core-R6tracker\\R6tracker\\R6tracker.Util\\R6tracker.Util.csproj",
-        "projectName": "R6tracker.Util",
-        "projectPath": "C:\\Users\\pc\\r6trackerproj\\ef-core-R6tracker\\R6tracker\\R6tracker.Util\\R6tracker.Util.csproj",
-        "packagesPath": "C:\\Users\\pc\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\pc\\r6trackerproj\\ef-core-R6tracker\\R6tracker\\R6tracker.Util\\obj\\",
-        "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
-        "configFilePaths": [
-          "C:\\Users\\pc\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
-        ],
-        "originalTargetFrameworks": [
-          "net7.0"
-        ],
-        "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "https://api.nuget.org/v3/index.json": {}
-        },
-        "frameworks": {
-          "net7.0": {
-            "targetAlias": "net7.0",
-            "projectReferences": {}
-          }
-        },
-        "warningProperties": {
-          "warnAsError": [
-            "NU1605"
-          ]
-        },
-        "restoreAuditProperties": {
-          "enableAudit": "true",
-          "auditLevel": "low",
-          "auditMode": "direct"
-        },
-        "SdkAnalysisLevel": "9.0.300"
-      },
-      "frameworks": {
-        "net7.0": {
-          "targetAlias": "net7.0",
-          "imports": [
-            "net461",
-            "net462",
-            "net47",
-            "net471",
-            "net472",
-            "net48",
-            "net481"
-          ],
-          "assetTargetFallback": true,
-          "warn": true,
-          "frameworkReferences": {
-            "Microsoft.NETCore.App": {
-              "privateAssets": "all"
-            }
-          },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.311\\RuntimeIdentifierGraph.json"
-        }
-      }
-    },
     "C:\\Users\\pc\\r6trackerproj\\ef-core-R6tracker\\R6tracker\\R6tracker\\R6tracker.csproj": {
       "version": "1.0.0",
       "restore": {
@@ -246,24 +182,21 @@
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
-          "net7.0"
+          "net8.0"
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
-          "net7.0": {
-            "targetAlias": "net7.0",
+          "net8.0": {
+            "targetAlias": "net8.0",
             "projectReferences": {
               "C:\\Users\\pc\\r6trackerproj\\ef-core-R6tracker\\R6tracker\\R6tracker.Core\\R6tracker.Core.csproj": {
                 "projectPath": "C:\\Users\\pc\\r6trackerproj\\ef-core-R6tracker\\R6tracker\\R6tracker.Core\\R6tracker.Core.csproj"
               },
               "C:\\Users\\pc\\r6trackerproj\\ef-core-R6tracker\\R6tracker\\R6tracker.Infrastructure\\R6tracker.Infrastructure.csproj": {
                 "projectPath": "C:\\Users\\pc\\r6trackerproj\\ef-core-R6tracker\\R6tracker\\R6tracker.Infrastructure\\R6tracker.Infrastructure.csproj"
-              },
-              "C:\\Users\\pc\\r6trackerproj\\ef-core-R6tracker\\R6tracker\\R6tracker.Util\\R6tracker.Util.csproj": {
-                "projectPath": "C:\\Users\\pc\\r6trackerproj\\ef-core-R6tracker\\R6tracker\\R6tracker.Util\\R6tracker.Util.csproj"
               }
             }
           }
@@ -281,8 +214,8 @@
         "SdkAnalysisLevel": "9.0.300"
       },
       "frameworks": {
-        "net7.0": {
-          "targetAlias": "net7.0",
+        "net8.0": {
+          "targetAlias": "net8.0",
           "dependencies": {
             "Humanizer": {
               "target": "Package",
@@ -305,7 +238,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.311\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.311/PortableRuntimeIdentifierGraph.json"
         }
       }
     }
