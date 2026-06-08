@@ -20,20 +20,13 @@ public class AuthController : ControllerBase
         if (!ModelState.IsValid)
             return BadRequest(ModelState);
 
-        try
-        {
-            await authService.RegisterAsync(
-                request.Email,
-                request.Password,
-                request.DisplayName,
-                request.Country);
+        await authService.RegisterAsync(
+            request.Email,
+            request.Password,
+            request.DisplayName,
+            request.Country);
 
-            return Ok(new { message = "Registration successful" });
-        }
-        catch (InvalidOperationException ex)
-        {
-            return BadRequest(new { message = ex.Message });
-        }
+        return Ok(new { message = "Registration successful" });
     }
 
     [HttpPost("login")]
@@ -42,15 +35,8 @@ public class AuthController : ControllerBase
         if (!ModelState.IsValid)
             return BadRequest(ModelState);
 
-        try
-        {
-            var token = await authService.LoginAsync(request.Email, request.Password);
-            return Ok(new { token });
-        }
-        catch (UnauthorizedAccessException ex)
-        {
-            return Unauthorized(new { message = ex.Message });
-        }
+        var token = await authService.LoginAsync(request.Email, request.Password);
+        return Ok(new { token });
     }
 }
 

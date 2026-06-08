@@ -25,10 +25,6 @@ public class RanksController : ControllerBase
     public async Task<IActionResult> GetById(string id)
     {
         var rank = await rankService.GetByIdAsync(id);
-
-        if (rank == null)
-            return NotFound(new { message = "Rank not found" });
-
         return Ok(rank);
     }
 }

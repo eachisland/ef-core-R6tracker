@@ -29,10 +29,6 @@ public class GameSessionsController : ControllerBase
     public async Task<IActionResult> GetById(string id)
     {
         var session = await sessionService.GetByIdAsync(id);
-
-        if (session == null)
-            return NotFound(new { message = "Session not found" });
-
         return Ok(session);
     }
 
@@ -58,11 +54,7 @@ public class GameSessionsController : ControllerBase
     [Authorize(Roles = "Administrator")]
     public async Task<IActionResult> Delete(string id)
     {
-        var deleted = await sessionService.DeleteAsync(id);
-
-        if (!deleted)
-            return NotFound(new { message = "Session not found" });
-
+        await sessionService.DeleteAsync(id);
         return NoContent();
     }
 }

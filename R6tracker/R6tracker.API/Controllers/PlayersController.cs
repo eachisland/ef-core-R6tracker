@@ -32,10 +32,6 @@ public class PlayersController : ControllerBase
     public async Task<IActionResult> GetById(string id)
     {
         var player = await playerService.GetByIdAsync(id);
-
-        if (player == null)
-            return NotFound(new { message = "Player not found" });
-
         return Ok(player);
     }
 
@@ -47,16 +43,8 @@ public class PlayersController : ControllerBase
             return BadRequest(ModelState);
 
         var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-
-        try
-        {
-            var result = await playerService.CreateAsync(dto, userId);
-            return CreatedAtAction(nameof(GetById), new { id = result.Id }, result);
-        }
-        catch (InvalidOperationException ex)
-        {
-            return Conflict(new { message = ex.Message });
-        }
+        var result = await playerService.CreateAsync(dto, userId);
+        return CreatedAtAction(nameof(GetById), new { id = result.Id }, result);
     }
 
     [HttpPut("{id}")]
@@ -67,11 +55,7 @@ public class PlayersController : ControllerBase
             return BadRequest(ModelState);
 
         var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-        var updated = await playerService.UpdateAsync(id, dto, userId);
-
-        if (!updated)
-            return Forbid();
-
+        await playerService.UpdateAsync(id, dto, userId);
         return NoContent();
     }
 
@@ -81,11 +65,7 @@ public class PlayersController : ControllerBase
     {
         var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
         var isAdmin = User.IsInRole("Administrator");
-        var deleted = await playerService.DeleteAsync(id, userId, isAdmin);
-
-        if (!deleted)
-            return NotFound(new { message = "Player not found" });
-
+        await playerService.DeleteAsync(id, userId, isAdmin);
         return NoContent();
     }
 }

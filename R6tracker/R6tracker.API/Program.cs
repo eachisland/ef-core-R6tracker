@@ -6,6 +6,7 @@ using R6tracker.Core.Interfaces;
 using R6tracker.Core.Services;
 using R6tracker.Infrastructure.Data;
 using R6tracker.Infrastructure.Data.Models;
+using R6tracker.API.Middleware;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -60,6 +61,8 @@ builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddControllers();
 
 var app = builder.Build();
+
+app.UseMiddleware<ExceptionMiddleware>();
 
 using (var scope = app.Services.CreateScope())
 {
