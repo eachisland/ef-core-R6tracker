@@ -4,6 +4,7 @@ using R6tracker.Core.DTOs;
 using R6tracker.Core.Interfaces;
 using R6tracker.Infrastructure.Data;
 using R6tracker.Infrastructure.Data.Models;
+using R6tracker.Core.Exceptions;
 
 namespace R6tracker.Core.Services;
 
@@ -17,7 +18,45 @@ public class PlayerService : IPlayerService
         this.context = context;
         this.logger = logger;
     }
-    public async Task<IEnumerable<PlayerDto>> GetAllAsync(string? search = null, string? platform = null)
+
+    public async Task<PlayerDto> CreateAsync(CreatePlayerDto dto, string userId)
+    {
+        var player = new R6Player
+        {
+            Id = Guid.NewGuid().ToString(),
+            PlayerName = dto.PlayerName,
+            Platform = dto.Platform,
+            Level = dto.Level,
+            MatchesPlayed = dto.MatchesPlayed,
+            Kills = dto.Kills,
+            Deaths = dto.Deaths,
+            KillDeathRatio = dto.Deaths == 0 ? dto.Kills : (double)dto.Kills / dto.Deaths,
+            Country = dto.Country,
+            UserId = userId,
+            CreatedAt = DateTime.UtcNow
+        };
+
+        context.R6Players.Add(player);
+        await context.SaveChangesAsync();
+        logger.LogInformation("Player {Id} created for user {UserId}", player.Id, userId);
+
+        return new PlayerDto
+        {
+            Id = player.Id,
+            PlayerName = player.PlayerName,
+            Platform = player.Platform,
+            Level = player.Level,
+            MatchesPlayed = player.MatchesPlayed,
+            Kills = player.Kills,
+            Deaths = player.Deaths,
+            KillDeathRatio = player.KillDeathRatio,
+            Country = player.Country,
+            RankName = "Unranked",
+            CreatedAt = player.CreatedAt
+        };
+    }
+
+    public async Task<IEnumerable<PlayerDto>> GetAllAsync(string search = null, string platform = null)
     {
         logger.LogInformation("Fetching all players. Search={Search}, Platform={Platform}", search, platform);
 
@@ -54,11 +93,9 @@ public class PlayerService : IPlayerService
             .ToListAsync();
     }
 
-    public async Task<PlayerDto?> GetByIdAsync(string id)
+    public async Task<PlayerDto> GetByIdAsync(string id)
     {
-        logger.LogInformation("Fetching player {Id}", id);
-
-        return await context.R6Players
+        var player = await context.R6Players
             .Include(p => p.Rank)
             .Where(p => p.Id == id)
             .Select(p => new PlayerDto
@@ -72,58 +109,18 @@ public class PlayerService : IPlayerService
                 Deaths = p.Deaths,
                 KillDeathRatio = p.KillDeathRatio,
                 Country = p.Country,
-                RankName = p.Rank != null ? p.Rank.Name : "Unranked",
+                RankName = p.Rank.Name,
                 CreatedAt = p.CreatedAt
             })
             .FirstOrDefaultAsync();
-    }
 
-    public async Task<PlayerDto> CreateAsync(CreatePlayerDto dto, string userId)
-    {
-        bool exists = await context.R6Players
-            .AnyAsync(p => p.PlayerName == dto.PlayerName && p.Platform == dto.Platform);
-
-        if (exists)
+        if (player == null)
         {
-            logger.LogWarning("Player {Name} on {Platform} already exists", dto.PlayerName, dto.Platform);
-            throw new InvalidOperationException("Player already exists on that platform.");
+            logger.LogWarning("Player {Id} not found", id);
+            throw new NotFoundException($"Player with id {id} was not found.");
         }
 
-        double kd = dto.Deaths == 0 ? dto.Kills : (double)dto.Kills / dto.Deaths;
-
-        var player = new R6Player
-        {
-            PlayerName = dto.PlayerName,
-            Platform = dto.Platform,
-            Level = dto.Level,
-            MatchesPlayed = dto.MatchesPlayed,
-            Kills = dto.Kills,
-            Deaths = dto.Deaths,
-            KillDeathRatio = kd,
-            Country = dto.Country,
-            UserId = userId,
-            CreatedAt = DateTime.UtcNow
-        };
-
-        context.R6Players.Add(player);
-        await context.SaveChangesAsync();
-
-        logger.LogInformation("Player {Name} created with Id {Id}", player.PlayerName, player.Id);
-
-        return new PlayerDto
-        {
-            Id = player.Id,
-            PlayerName = player.PlayerName,
-            Platform = player.Platform,
-            Level = player.Level,
-            MatchesPlayed = player.MatchesPlayed,
-            Kills = player.Kills,
-            Deaths = player.Deaths,
-            KillDeathRatio = player.KillDeathRatio,
-            Country = player.Country,
-            RankName = "Unranked",
-            CreatedAt = player.CreatedAt
-        };
+        return player;
     }
 
     public async Task<bool> UpdateAsync(string id, CreatePlayerDto dto, string userId)
@@ -133,13 +130,13 @@ public class PlayerService : IPlayerService
         if (player == null)
         {
             logger.LogWarning("Update failed - player {Id} not found", id);
-            return false;
+            throw new NotFoundException($"Player with id {id} was not found.");
         }
 
         if (player.UserId != userId)
         {
             logger.LogWarning("Update forbidden - user {UserId} does not own player {Id}", userId, id);
-            return false;
+            throw new BadRequestException("You do not have permission to edit this player.");
         }
 
         player.PlayerName = dto.PlayerName;
@@ -163,13 +160,13 @@ public class PlayerService : IPlayerService
         if (player == null)
         {
             logger.LogWarning("Delete failed - player {Id} not found", id);
-            return false;
+            throw new NotFoundException($"Player with id {id} was not found.");
         }
 
         if (!isAdmin && player.UserId != userId)
         {
             logger.LogWarning("Delete forbidden - user {UserId} does not own player {Id}", userId, id);
-            return false;
+            throw new BadRequestException("You do not have permission to delete this player.");
         }
 
         context.R6Players.Remove(player);
