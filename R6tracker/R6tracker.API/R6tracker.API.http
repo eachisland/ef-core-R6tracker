@@ -1,0 +1,6 @@
+@R6tracker.API_HostAddress = http://localhost:5201
+
+GET {{R6tracker.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
