@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("R6tracker.Infrastructure")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c9f4598422f5ebf690b790eacb0168f1d261e463")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+04be925f4c6c6a3cc9a61cc7492ccf857995a529")]
 [assembly: System.Reflection.AssemblyProductAttribute("R6tracker.Infrastructure")]
 [assembly: System.Reflection.AssemblyTitleAttribute("R6tracker.Infrastructure")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

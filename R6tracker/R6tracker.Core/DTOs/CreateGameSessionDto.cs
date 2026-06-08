@@ -20,6 +20,5 @@ public class CreateGameSessionDto
     [MaxLength(10)]
     public string Result { get; set; } = string.Empty;
 
-    [MaxLength(50)]
-    public string? Map { get; set; }
+    public int MapId { get; set; }
 }

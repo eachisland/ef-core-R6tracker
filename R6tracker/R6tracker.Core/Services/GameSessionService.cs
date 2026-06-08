@@ -1,20 +1,31 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using R6tracker.Core.DTOs;
+using R6tracker.Core.Exceptions;
 using R6tracker.Core.Interfaces;
 using R6tracker.Infrastructure.Data;
 using R6tracker.Infrastructure.Data.Models;
 
 namespace R6tracker.Core.Services;
 
-public class GameSessionService(R6trackerDbContext context, ILogger<GameSessionService> logger) : IGameSessionService
+public class GameSessionService : IGameSessionService
 {
+    private readonly R6trackerDbContext context;
+    private readonly ILogger<GameSessionService> logger;
+
+    public GameSessionService(R6trackerDbContext context, ILogger<GameSessionService> logger)
+    {
+        this.context = context;
+        this.logger = logger;
+    }
+
     public async Task<IEnumerable<GameSessionDto>> GetAllAsync()
     {
         logger.LogInformation("Fetching all game sessions");
 
         return await context.GameSessions
             .Include(s => s.Player)
+            .Include(s => s.Map)
             .OrderByDescending(s => s.DatePlayed)
             .Select(s => new GameSessionDto
             {
@@ -23,9 +34,10 @@ public class GameSessionService(R6trackerDbContext context, ILogger<GameSessionS
                 Kills = s.Kills,
                 Deaths = s.Deaths,
                 Result = s.Result,
-                Map = s.Map,
+                MapName = s.Map.Name,
+                MapId = s.MapId,
                 PlayerId = s.PlayerId,
-                PlayerName = s.Player == null ? string.Empty : s.Player.PlayerName ?? string.Empty
+                PlayerName = s.Player.PlayerName
             })
             .ToListAsync();
     }
@@ -36,6 +48,7 @@ public class GameSessionService(R6trackerDbContext context, ILogger<GameSessionS
 
         return await context.GameSessions
             .Include(s => s.Player)
+            .Include(s => s.Map)
             .Where(s => s.PlayerId == playerId)
             .OrderByDescending(s => s.DatePlayed)
             .Select(s => new GameSessionDto
@@ -45,17 +58,19 @@ public class GameSessionService(R6trackerDbContext context, ILogger<GameSessionS
                 Kills = s.Kills,
                 Deaths = s.Deaths,
                 Result = s.Result,
-                Map = s.Map,
+                MapName = s.Map.Name,
+                MapId = s.MapId,
                 PlayerId = s.PlayerId,
-                PlayerName = s.Player == null ? string.Empty : s.Player.PlayerName ?? string.Empty
+                PlayerName = s.Player.PlayerName
             })
             .ToListAsync();
     }
 
-    public async Task<GameSessionDto?> GetByIdAsync(string id)
+    public async Task<GameSessionDto> GetByIdAsync(string id)
     {
-        return await context.GameSessions
+        var session = await context.GameSessions
             .Include(s => s.Player)
+            .Include(s => s.Map)
             .Where(s => s.Id == id)
             .Select(s => new GameSessionDto
             {
@@ -64,11 +79,20 @@ public class GameSessionService(R6trackerDbContext context, ILogger<GameSessionS
                 Kills = s.Kills,
                 Deaths = s.Deaths,
                 Result = s.Result,
-                Map = s.Map,
+                MapName = s.Map.Name,
+                MapId = s.MapId,
                 PlayerId = s.PlayerId,
-                PlayerName = s.Player == null ? string.Empty : s.Player.PlayerName ?? string.Empty
+                PlayerName = s.Player.PlayerName
             })
             .FirstOrDefaultAsync();
+
+        if (session == null)
+        {
+            logger.LogWarning("Session {Id} not found", id);
+            throw new NotFoundException($"Session with id {id} was not found.");
+        }
+
+        return session;
     }
 
     public async Task<GameSessionDto> CreateAsync(CreateGameSessionDto dto)
@@ -79,7 +103,7 @@ public class GameSessionService(R6trackerDbContext context, ILogger<GameSessionS
             Kills = dto.Kills,
             Deaths = dto.Deaths,
             Result = dto.Result,
-            Map = dto.Map,
+            MapId = dto.MapId,
             PlayerId = dto.PlayerId
         };
 
@@ -95,7 +119,7 @@ public class GameSessionService(R6trackerDbContext context, ILogger<GameSessionS
             Kills = session.Kills,
             Deaths = session.Deaths,
             Result = session.Result,
-            Map = session.Map,
+            MapId = session.MapId,
             PlayerId = session.PlayerId
         };
     }
@@ -107,7 +131,7 @@ public class GameSessionService(R6trackerDbContext context, ILogger<GameSessionS
         if (session == null)
         {
             logger.LogWarning("Delete failed - session {Id} not found", id);
-            return false;
+            throw new NotFoundException($"Session with id {id} was not found.");
         }
 
         context.GameSessions.Remove(session);

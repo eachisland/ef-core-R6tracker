@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using R6tracker.Infrastructure.Data;
 
@@ -11,9 +12,11 @@ using R6tracker.Infrastructure.Data;
 namespace R6tracker.Infrastructure.Migrations
 {
     [DbContext(typeof(R6trackerDbContext))]
-    partial class R6trackerDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260608133310_AddR6Map")]
+    partial class AddR6Map
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

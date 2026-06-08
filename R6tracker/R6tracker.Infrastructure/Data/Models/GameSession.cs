@@ -12,7 +12,7 @@ namespace R6tracker.Infrastructure.Data.Models
         }
 
         [Key]
-        public string Id { get; set; }
+        public string Id { get; set; } = string.Empty;
 
         [Required]
         public DateTime DatePlayed { get; set; }
@@ -23,15 +23,19 @@ namespace R6tracker.Infrastructure.Data.Models
         [Range(0, int.MaxValue)]
         public int Deaths { get; set; }
 
+        [Required]
         [MaxLength(DBConstants.GameConstants.MaxResultLength)]
         public string Result { get; set; } = string.Empty;
 
-        [MaxLength(50)]
-        public string? Map { get; set; }
-
         [Required]
         public string PlayerId { get; set; } = string.Empty;
+
         [ForeignKey(nameof(PlayerId))]
-        public R6Player? Player { get; set; }
+        public R6Player Player { get; set; } = null!;
+
+        public int MapId { get; set; }
+
+        [ForeignKey(nameof(MapId))]
+        public R6Map Map { get; set; } = null!;
     }
 }
