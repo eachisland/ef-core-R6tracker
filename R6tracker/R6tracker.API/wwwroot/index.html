@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>R6 Tracker</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+<header>
+  <div class="logo">R6 <span>TRACKER</span></div>
+  <nav>
+    <button onclick="showPage('home')">Home</button>
+    <button onclick="showPage('players')">Players</button>
+    <button onclick="showPage('sessions')">Sessions</button>
+    <button onclick="showPage('ranks')">Ranks</button>
+    <button onclick="showPage('maps')">Maps</button>
+    <button id="admin-nav" style="display:none" onclick="showPage('admin')">Admin</button>
+  </nav>
+  <div class="auth-area">
+    <span id="user-info"></span>
+    <button id="auth-btn" onclick="showPage('auth')">Login</button>
+    <button id="logout-btn" style="display:none" onclick="logout()">Logout</button>
+  </div>
+</header>
+
+<main>
+
+  <div class="page active" id="page-home">
+    <div class="hero">
+      <h1>Welcome to R6 Tracker</h1>
+      <p>Track your Rainbow Six Siege stats, sessions and ranks.</p>
+      <button onclick="showPage('players')">View Players</button>
+      <button onclick="showPage('auth')">Get Started</button>
+      <div class="hero-stats">
+        <div><div id="stat-players">0</div><small>Players</small></div>
+        <div><div id="stat-sessions">0</div><small>Sessions</small></div>
+        <div><div id="stat-maps">0</div><small>Maps</small></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="page" id="page-players">
+    <div class="page-header">
+      <h2>Players</h2>
+      <button id="add-player-btn" style="display:none" onclick="openAddPlayer()">+ Add Player</button>
+    </div>
+    <div class="search-bar">
+      <input type="text" id="search-input" placeholder="Search by name..." oninput="filterPlayers()" />
+      <select id="platform-filter" onchange="filterPlayers()">
+        <option value="">All Platforms</option>
+        <option value="PC">PC</option>
+        <option value="PS5">PS5</option>
+        <option value="PS4">PS4</option>
+        <option value="Xbox">Xbox</option>
+      </select>
+    </div>
+    <div id="players-list" class="grid"></div>
+  </div>
+
+  <div class="page" id="page-sessions">
+    <div class="page-header">
+      <h2>Game Sessions</h2>
+      <button id="add-session-btn" style="display:none" onclick="openAddSession()">+ Log Session</button>
+    </div>
+    <div id="sessions-list"></div>
+  </div>
+
+  <div class="page" id="page-ranks">
+    <div class="page-header"><h2>Ranks</h2></div>
+    <div id="ranks-list" class="grid"></div>
+  </div>
+
+  <div class="page" id="page-maps">
+    <div class="page-header">
+      <h2>Maps</h2>
+      <button id="add-map-btn" style="display:none" onclick="openAddMap()">+ Add Map</button>
+    </div>
+    <div id="maps-list" class="grid"></div>
+  </div>
+
+  <div class="page" id="page-auth">
+    <div class="auth-box">
+      <div class="auth-tabs">
+        <button class="active" onclick="switchTab('login', this)">Login</button>
+        <button onclick="switchTab('register', this)">Register</button>
+      </div>
+      <div id="login-form">
+        <div id="login-error"></div>
+        <div class="field">
+          <label>Email</label>
+          <input type="email" id="login-email" placeholder="admin@r6tracker.com" />
+        </div>
+        <div class="field">
+          <label>Password</label>
+          <input type="password" id="login-password" />
+        </div>
+        <button onclick="doLogin()">Login</button>
+      </div>
+      <div id="register-form" style="display:none">
+        <div id="reg-error"></div>
+        <div class="field">
+          <label>Email</label>
+          <input type="email" id="reg-email" />
+        </div>
+        <div class="field">
+          <label>Display Name</label>
+          <input type="text" id="reg-displayname" />
+        </div>
+        <div class="field">
+          <label>Country</label>
+          <input type="text" id="reg-country" placeholder="BG" />
+        </div>
+        <div class="field">
+          <label>Password</label>
+          <input type="password" id="reg-password" />
+        </div>
+        <button onclick="doRegister()">Register</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="page" id="page-admin">
+    <div class="page-header"><h2>Admin Panel</h2></div>
+    <div id="admin-content"></div>
+  </div>
+
+</main>
+
+<div class="modal-overlay" id="player-modal">
+  <div class="modal">
+    <h3 id="player-modal-title">Add Player</h3>
+    <div id="player-error"></div>
+    <input type="hidden" id="edit-player-id" />
+    <div class="field"><label>Name</label><input type="text" id="f-name" /></div>
+    <div class="field">
+      <label>Platform</label>
+      <select id="f-platform">
+        <option value="PC">PC</option>
+        <option value="PS5">PS5</option>
+        <option value="PS4">PS4</option>
+        <option value="Xbox">Xbox</option>
+      </select>
+    </div>
+    <div class="field"><label>Level</label><input type="number" id="f-level" value="1" min="1" max="500" /></div>
+    <div class="field"><label>Country</label><input type="text" id="f-country" /></div>
+    <div class="field"><label>Matches Played</label><input type="number" id="f-matches" value="0" min="0" /></div>
+    <div class="field"><label>Kills</label><input type="number" id="f-kills" value="0" min="0" /></div>
+    <div class="field"><label>Deaths</label><input type="number" id="f-deaths" value="0" min="0" /></div>
+    <div class="modal-actions">
+      <button onclick="closeModal('player-modal')">Cancel</button>
+      <button onclick="savePlayer()">Save</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="session-modal">
+  <div class="modal">
+    <h3>Log Session</h3>
+    <div id="session-error"></div>
+    <div class="field"><label>Player</label><select id="s-player"></select></div>
+    <div class="field"><label>Map</label><select id="s-map"></select></div>
+    <div class="field">
+      <label>Result</label>
+      <select id="s-result">
+        <option value="Win">Win</option>
+        <option value="Loss">Loss</option>
+        <option value="Draw">Draw</option>
+      </select>
+    </div>
+    <div class="field"><label>Date</label><input type="datetime-local" id="s-date" /></div>
+    <div class="field"><label>Kills</label><input type="number" id="s-kills" value="0" min="0" /></div>
+    <div class="field"><label>Deaths</label><input type="number" id="s-deaths" value="0" min="0" /></div>
+    <div class="modal-actions">
+      <button onclick="closeModal('session-modal')">Cancel</button>
+      <button onclick="saveSession()">Save</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="map-modal">
+  <div class="modal">
+    <h3>Add Map</h3>
+    <div id="map-error"></div>
+    <div class="field"><label>Name</label><input type="text" id="m-name" /></div>
+    <div class="field"><label>Location</label><input type="text" id="m-location" /></div>
+    <div class="field">
+      <label>Type</label>
+      <select id="m-type">
+        <option value="Bomb">Bomb</option>
+        <option value="Hostage">Hostage</option>
+        <option value="Secure">Secure Area</option>
+      </select>
+    </div>
+    <div class="field">
+      <label>Active in Ranked</label>
+      <select id="m-active">
+        <option value="true">Yes</option>
+        <option value="false">No</option>
+      </select>
+    </div>
+    <div class="modal-actions">
+      <button onclick="closeModal('map-modal')">Cancel</button>
+      <button onclick="saveMap()">Save</button>
+    </div>
+  </div>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
