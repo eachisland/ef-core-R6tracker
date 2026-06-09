@@ -23,7 +23,7 @@ public class RankService(R6trackerDbContext context, ILogger<RankService> logger
             .ToListAsync();
     }
 
-    public async Task<RankDto?> GetByIdAsync(string id)
+    public async Task<RankDto> GetByIdAsync(string id)
     {
         return await context.Ranks
             .Where(r => r.Id == id)

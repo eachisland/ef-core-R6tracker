@@ -5,5 +5,5 @@ namespace R6tracker.Core.Interfaces;
 public interface IRankService
 {
     Task<IEnumerable<RankDto>> GetAllAsync();
-    Task<RankDto?> GetByIdAsync(string id);
+    Task<RankDto> GetByIdAsync(string id);
 }

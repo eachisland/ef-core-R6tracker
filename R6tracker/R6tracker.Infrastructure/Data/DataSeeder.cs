@@ -29,5 +29,22 @@ public static class DataSeeder
             await userManager.CreateAsync(admin, "Admin123!");
             await userManager.AddToRoleAsync(admin, "Administrator");
         }
+
+        if (!context.Maps.Any())
+        {
+            context.Maps.AddRange(
+                new R6Map { Name = "Border",    Location = "Mexico",  Type = "Bomb", IsActive = true  },
+                new R6Map { Name = "Clubhouse", Location = "Germany", Type = "Bomb", IsActive = true  },
+                new R6Map { Name = "Coastline", Location = "Spain",   Type = "Bomb", IsActive = true  },
+                new R6Map { Name = "Consulate", Location = "France",  Type = "Bomb", IsActive = true  },
+                new R6Map { Name = "Kafe",      Location = "Russia",  Type = "Bomb", IsActive = true  },
+                new R6Map { Name = "Oregon",    Location = "USA",     Type = "Bomb", IsActive = true  },
+                new R6Map { Name = "Villa",     Location = "Italy",   Type = "Bomb", IsActive = true  },
+                new R6Map { Name = "Bank",      Location = "USA",     Type = "Bomb", IsActive = false },
+                new R6Map { Name = "Chalet",    Location = "France",  Type = "Bomb", IsActive = false },
+                new R6Map { Name = "Kanal",     Location = "Germany", Type = "Bomb", IsActive = false }
+            );
+            await context.SaveChangesAsync();
+        }
     }
 }

@@ -15,6 +15,7 @@ namespace R6tracker.Infrastructure.Data
         public DbSet<R6Player> R6Players { get; set; }
         public DbSet<GameSession> GameSessions { get; set; }
         public DbSet<Rank> Ranks { get; set; }
+        public DbSet<R6Map> Maps { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
