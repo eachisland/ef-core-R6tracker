@@ -140,3 +140,4 @@ C:\Users\pc\r6trackerproj\ef-core-R6tracker\R6tracker\R6tracker.API\obj\Debug\ne
 C:\Users\pc\r6trackerproj\ef-core-R6tracker\R6tracker\R6tracker.API\obj\Debug\net8.0\R6tracker.API.pdb
 C:\Users\pc\r6trackerproj\ef-core-R6tracker\R6tracker\R6tracker.API\obj\Debug\net8.0\R6tracker.API.genruntimeconfig.cache
 C:\Users\pc\r6trackerproj\ef-core-R6tracker\R6tracker\R6tracker.API\obj\Debug\net8.0\ref\R6tracker.API.dll
+C:\Users\pc\r6trackerproj\ef-core-R6tracker\R6tracker\R6tracker.API\bin\Debug\net8.0\R6tracker.API.staticwebassets.runtime.json

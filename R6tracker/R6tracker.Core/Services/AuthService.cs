@@ -2,7 +2,9 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
+using R6tracker.Core.DTOs;
 using R6tracker.Core.Interfaces;
+using R6tracker.Infrastructure.Data;
 using R6tracker.Infrastructure.Data.Models;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -16,20 +18,23 @@ public class AuthService : IAuthService
     private readonly SignInManager<ApplicationUser> signInManager;
     private readonly IConfiguration config;
     private readonly ILogger<AuthService> logger;
+    private readonly R6trackerDbContext context;
 
     public AuthService(
         UserManager<ApplicationUser> userManager,
         SignInManager<ApplicationUser> signInManager,
         IConfiguration config,
-        ILogger<AuthService> logger)
+        ILogger<AuthService> logger,
+        R6trackerDbContext context)
     {
         this.userManager = userManager;
         this.signInManager = signInManager;
         this.config = config;
         this.logger = logger;
+        this.context = context;
     }
 
-    public async Task<string> LoginAsync(string email, string password)
+    public async Task<LoginResultDto> LoginAsync(string email, string password)
     {
         var user = await userManager.FindByEmailAsync(email);
 
@@ -48,8 +53,18 @@ public class AuthService : IAuthService
         }
 
         var roles = await userManager.GetRolesAsync(user);
+        var token = GenerateToken(user, roles);
+        var player = context.R6Players.FirstOrDefault(p => p.UserId == user.Id);
+
         logger.LogInformation("User {Email} logged in", email);
-        return GenerateToken(user, roles);
+
+        return new LoginResultDto
+        {
+            Token = token,
+            DisplayName = user.DisplayName,
+            IsAdmin = roles.Contains("Administrator"),
+            PlayerId = player != null ? player.Id : string.Empty
+        };
     }
 
     public async Task RegisterAsync(string email, string password, string displayName, string country)
@@ -73,7 +88,48 @@ public class AuthService : IAuthService
         }
 
         await userManager.AddToRoleAsync(user, "User");
-        logger.LogInformation("User {Email} registered", email);
+
+        var player = new R6Player
+        {
+            Id = Guid.NewGuid().ToString(),
+            PlayerName = displayName,
+            Platform = "PC",
+            Level = 1,
+            MatchesPlayed = 0,
+            Kills = 0,
+            Deaths = 0,
+            KillDeathRatio = 0,
+            Country = country,
+            UserId = user.Id,
+            CreatedAt = DateTime.UtcNow
+        };
+
+        context.R6Players.Add(player);
+        await context.SaveChangesAsync();
+
+        logger.LogInformation("User {Email} registered with player profile", email);
+    }
+
+    public async Task<IEnumerable<UserDto>> GetAllUsersAsync()
+    {
+        var users = userManager.Users.ToList();
+        var result = new List<UserDto>();
+
+        foreach (var user in users)
+        {
+            var roles = await userManager.GetRolesAsync(user);
+            result.Add(new UserDto
+            {
+                Id = user.Id,
+                Email = user.Email,
+                DisplayName = user.DisplayName,
+                Country = user.Country,
+                RegisteredOn = user.RegisteredOn,
+                Role = roles.FirstOrDefault() ?? "User"
+            });
+        }
+
+        return result;
     }
 
     private string GenerateToken(ApplicationUser user, IList<string> roles)

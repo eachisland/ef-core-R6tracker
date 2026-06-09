@@ -35,20 +35,8 @@ public class PlayersController : ControllerBase
         return Ok(player);
     }
 
-    [HttpPost]
-    [Authorize]
-    public async Task<IActionResult> Create([FromBody] CreatePlayerDto dto)
-    {
-        if (!ModelState.IsValid)
-            return BadRequest(ModelState);
-
-        var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-        var result = await playerService.CreateAsync(dto, userId);
-        return CreatedAtAction(nameof(GetById), new { id = result.Id }, result);
-    }
-
     [HttpPut("{id}")]
-    [Authorize]
+    [Authorize(Roles = "Administrator")]
     public async Task<IActionResult> Update(string id, [FromBody] CreatePlayerDto dto)
     {
         if (!ModelState.IsValid)
@@ -60,12 +48,28 @@ public class PlayersController : ControllerBase
     }
 
     [HttpDelete("{id}")]
-    [Authorize]
+    [Authorize(Roles = "Administrator")]
     public async Task<IActionResult> Delete(string id)
     {
         var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
         var isAdmin = User.IsInRole("Administrator");
         await playerService.DeleteAsync(id, userId, isAdmin);
         return NoContent();
+    }
+
+    [HttpPost]
+    [Authorize(Roles = "Administrator")]
+    public async Task<IActionResult> Create([FromBody] CreatePlayerDto dto)
+    {
+        if (!ModelState.IsValid)
+            return BadRequest(ModelState);
+
+        var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+        if (userId == null)
+            return Unauthorized(new { message = "User not found" });
+
+        var result = await playerService.CreateAsync(dto, userId);
+        return CreatedAtAction(nameof(GetById), new { id = result.Id }, result);
     }
 }

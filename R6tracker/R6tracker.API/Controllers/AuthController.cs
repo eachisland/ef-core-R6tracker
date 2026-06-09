@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using R6tracker.Core.Interfaces;
 
@@ -35,8 +36,16 @@ public class AuthController : ControllerBase
         if (!ModelState.IsValid)
             return BadRequest(ModelState);
 
-        var token = await authService.LoginAsync(request.Email, request.Password);
-        return Ok(new { token });
+        var result = await authService.LoginAsync(request.Email, request.Password);
+        return Ok(result);
+    }
+
+    [HttpGet("users")]
+    [Authorize(Roles = "Administrator")]
+    public async Task<IActionResult> GetAllUsers()
+    {
+        var users = await authService.GetAllUsersAsync();
+        return Ok(users);
     }
 }
 
