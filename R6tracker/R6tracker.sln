@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "R6tracker.Infrastructure", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "R6tracker.API", "R6tracker.API\R6tracker.API.csproj", "{F6EEE1AB-2091-4EC3-A8F5-B00EB6F1AC5E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "R6tracker.Tests", "R6tracker.Tests\R6tracker.Tests.csproj", "{81EF3E87-5D68-4120-9A12-20057AB1B23E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -55,6 +57,18 @@ Global
 		{F6EEE1AB-2091-4EC3-A8F5-B00EB6F1AC5E}.Release|x64.Build.0 = Release|Any CPU
 		{F6EEE1AB-2091-4EC3-A8F5-B00EB6F1AC5E}.Release|x86.ActiveCfg = Release|Any CPU
 		{F6EEE1AB-2091-4EC3-A8F5-B00EB6F1AC5E}.Release|x86.Build.0 = Release|Any CPU
+		{81EF3E87-5D68-4120-9A12-20057AB1B23E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{81EF3E87-5D68-4120-9A12-20057AB1B23E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{81EF3E87-5D68-4120-9A12-20057AB1B23E}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{81EF3E87-5D68-4120-9A12-20057AB1B23E}.Debug|x64.Build.0 = Debug|Any CPU
+		{81EF3E87-5D68-4120-9A12-20057AB1B23E}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{81EF3E87-5D68-4120-9A12-20057AB1B23E}.Debug|x86.Build.0 = Debug|Any CPU
+		{81EF3E87-5D68-4120-9A12-20057AB1B23E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{81EF3E87-5D68-4120-9A12-20057AB1B23E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{81EF3E87-5D68-4120-9A12-20057AB1B23E}.Release|x64.ActiveCfg = Release|Any CPU
+		{81EF3E87-5D68-4120-9A12-20057AB1B23E}.Release|x64.Build.0 = Release|Any CPU
+		{81EF3E87-5D68-4120-9A12-20057AB1B23E}.Release|x86.ActiveCfg = Release|Any CPU
+		{81EF3E87-5D68-4120-9A12-20057AB1B23E}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
