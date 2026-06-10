@@ -139,5 +139,43 @@ public class PlayerServiceTests
             await service.DeleteAsync("notexist", "user1", false));
     }
 
+    [Test]
+    public async Task DeleteAsync_WhenAdmin_DeletesAnyPlayer()
+    {
+        context.R6Players.Add(
+            new R6Player { Id = "1", PlayerName = "ShadowR", Platform = "PC", Country = "BG", UserId = "owner" }
+        );
+        await context.SaveChangesAsync();
+
+        var result = await service.DeleteAsync("1", "adminuser", true);
+
+        Assert.That(result, Is.True);
+        Assert.That(context.R6Players.Count(), Is.EqualTo(0));
+    }
+
+    [Test]
+    public async Task UpdateAsync_WhenPlayerExists_UpdatesPlayer()
+    {
+        context.R6Players.Add(
+            new R6Player { Id = "1", PlayerName = "ShadowR", Platform = "PC", Country = "BG", UserId = "user1" }
+        );
+        await context.SaveChangesAsync();
+
+        var dto = new CreatePlayerDto
+        {
+            PlayerName = "UpdatedName",
+            Platform = "PS5",
+            Level = 50,
+            Country = "US",
+            MatchesPlayed = 100,
+            Kills = 200,
+            Deaths = 100
+        };
+
+        var result = await service.UpdateAsync("1", dto, "user1");
+
+        Assert.That(result, Is.True);
+        Assert.That(context.R6Players.First().PlayerName, Is.EqualTo("UpdatedName"));
+    }
 
 }
