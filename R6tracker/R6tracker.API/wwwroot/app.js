@@ -23,7 +23,7 @@ function updateAuthUI() {
     document.getElementById('auth-btn').style.display = loggedIn ? 'none' : '';
     document.getElementById('logout-btn').style.display = loggedIn ? '' : 'none';
     document.getElementById('add-player-btn').style.display = isAdmin ? '' : 'none';
-    document.getElementById('add-session-btn').style.display = loggedIn ? '' : 'none';
+    document.getElementById('add-session-btn').style.display = isAdmin ? '' : 'none';
     document.getElementById('admin-nav').style.display = isAdmin ? '' : 'none';
     document.getElementById('add-map-btn').style.display = isAdmin ? '' : 'none';
     document.getElementById('user-info').textContent = currentUser ? currentUser.displayName : '';

@@ -40,7 +40,7 @@ public class GameSessionsController : ControllerBase
     }
 
     [HttpPost]
-    [Authorize]
+    [Authorize(Roles = "Administrator")]
     public async Task<IActionResult> Create([FromBody] CreateGameSessionDto dto)
     {
         if (!ModelState.IsValid)
