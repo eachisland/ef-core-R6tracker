@@ -118,4 +118,26 @@ public class PlayerServiceTests
         Assert.That(context.R6Players.Count(), Is.EqualTo(1));
     }
 
+    [Test]
+    public async Task DeleteAsync_WhenPlayerExists_DeletesPlayer()
+    {
+        context.R6Players.Add(
+            new R6Player { Id = "1", PlayerName = "ShadowR", Platform = "PC", Country = "BG", UserId = "user1" }
+        );
+        await context.SaveChangesAsync();
+
+        var result = await service.DeleteAsync("1", "user1", false);
+
+        Assert.That(result, Is.True);
+        Assert.That(context.R6Players.Count(), Is.EqualTo(0));
+    }
+
+    [Test]
+    public async Task DeleteAsync_WhenPlayerNotFound_ThrowsNotFoundException()
+    {
+        Assert.ThrowsAsync<R6tracker.Core.Exceptions.NotFoundException>(async () =>
+            await service.DeleteAsync("notexist", "user1", false));
+    }
+
+
 }
