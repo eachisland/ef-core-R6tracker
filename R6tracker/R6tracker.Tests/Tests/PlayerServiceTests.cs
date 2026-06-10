@@ -5,6 +5,7 @@ using NUnit.Framework;
 using R6tracker.Core.Services;
 using R6tracker.Infrastructure.Data;
 using R6tracker.Infrastructure.Data.Models;
+using R6tracker.Core.DTOs;
 
 namespace R6tracker.Tests;
 
@@ -76,4 +77,45 @@ public class PlayerServiceTests
         Assert.That(result.Count(), Is.EqualTo(1));
         Assert.That(result.First().Platform, Is.EqualTo("PC"));
     }
+    [Test]
+    public async Task GetByIdAsync_WhenPlayerExists_ReturnsPlayer()
+    {
+        context.R6Players.Add(
+            new R6Player { Id = "1", PlayerName = "ShadowR", Platform = "PC", Country = "BG", UserId = "user1" }
+        );
+        await context.SaveChangesAsync();
+
+        var result = await service.GetByIdAsync("1");
+
+        Assert.That(result, Is.Not.Null);
+        Assert.That(result.PlayerName, Is.EqualTo("ShadowR"));
+    }
+
+    [Test]
+    public void GetByIdAsync_WhenPlayerNotFound_ThrowsNotFoundException()
+    {
+        Assert.ThrowsAsync<R6tracker.Core.Exceptions.NotFoundException>(async () =>
+            await service.GetByIdAsync("notexist"));
+    }
+
+    [Test]
+    public async Task CreateAsync_ValidPlayer_AddsToDatabase()
+    {
+        var dto = new CreatePlayerDto
+        {
+            PlayerName = "TestPlayer",
+            Platform = "PC",
+            Level = 10,
+            Country = "BG",
+            MatchesPlayed = 0,
+            Kills = 0,
+            Deaths = 0
+        };
+
+        var result = await service.CreateAsync(dto, "user1");
+
+        Assert.That(result.PlayerName, Is.EqualTo("TestPlayer"));
+        Assert.That(context.R6Players.Count(), Is.EqualTo(1));
+    }
+
 }
