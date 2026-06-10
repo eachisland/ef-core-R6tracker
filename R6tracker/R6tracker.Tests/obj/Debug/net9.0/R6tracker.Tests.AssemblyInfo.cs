@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("R6tracker.Tests")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+31d71e072ecd3830cee480212633ec67b8ab1dc9")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c01c2ebc4327a295ac18b38a9c1ac38d1d43fbf9")]
 [assembly: System.Reflection.AssemblyProductAttribute("R6tracker.Tests")]
 [assembly: System.Reflection.AssemblyTitleAttribute("R6tracker.Tests")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
