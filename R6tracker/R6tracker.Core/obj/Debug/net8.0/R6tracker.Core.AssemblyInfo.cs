@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("R6tracker.Core")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+a8f1cd44179f68d917bd904783580234a1c72f56")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+57620975fc9cb8318d4753ac1b97c617d552a3d9")]
 [assembly: System.Reflection.AssemblyProductAttribute("R6tracker.Core")]
 [assembly: System.Reflection.AssemblyTitleAttribute("R6tracker.Core")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

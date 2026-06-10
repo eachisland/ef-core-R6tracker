@@ -1,7 +1,7 @@
 {
   "format": 1,
   "restore": {
-    "c:\\Users\\pc\\r6trackerproj\\ef-core-R6tracker\\R6tracker\\R6tracker.Tests\\R6tracker.Tests.csproj": {}
+    "C:\\Users\\pc\\r6trackerproj\\ef-core-R6tracker\\R6tracker\\R6tracker.Tests\\R6tracker.Tests.csproj": {}
   },
   "projects": {
     "C:\\Users\\pc\\r6trackerproj\\ef-core-R6tracker\\R6tracker\\R6tracker.Core\\R6tracker.Core.csproj": {
@@ -180,14 +180,14 @@
         }
       }
     },
-    "c:\\Users\\pc\\r6trackerproj\\ef-core-R6tracker\\R6tracker\\R6tracker.Tests\\R6tracker.Tests.csproj": {
+    "C:\\Users\\pc\\r6trackerproj\\ef-core-R6tracker\\R6tracker\\R6tracker.Tests\\R6tracker.Tests.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "c:\\Users\\pc\\r6trackerproj\\ef-core-R6tracker\\R6tracker\\R6tracker.Tests\\R6tracker.Tests.csproj",
+        "projectUniqueName": "C:\\Users\\pc\\r6trackerproj\\ef-core-R6tracker\\R6tracker\\R6tracker.Tests\\R6tracker.Tests.csproj",
         "projectName": "R6tracker.Tests",
-        "projectPath": "c:\\Users\\pc\\r6trackerproj\\ef-core-R6tracker\\R6tracker\\R6tracker.Tests\\R6tracker.Tests.csproj",
+        "projectPath": "C:\\Users\\pc\\r6trackerproj\\ef-core-R6tracker\\R6tracker\\R6tracker.Tests\\R6tracker.Tests.csproj",
         "packagesPath": "C:\\Users\\pc\\.nuget\\packages\\",
-        "outputPath": "c:\\Users\\pc\\r6trackerproj\\ef-core-R6tracker\\R6tracker\\R6tracker.Tests\\obj\\",
+        "outputPath": "C:\\Users\\pc\\r6trackerproj\\ef-core-R6tracker\\R6tracker\\R6tracker.Tests\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -233,6 +233,10 @@
         "net9.0": {
           "targetAlias": "net9.0",
           "dependencies": {
+            "Microsoft.EntityFrameworkCore.InMemory": {
+              "target": "Package",
+              "version": "[8.0.0, )"
+            },
             "Microsoft.NET.Test.Sdk": {
               "target": "Package",
               "version": "[17.12.0, )"
